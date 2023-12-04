@@ -1,0 +1,9 @@
+.header td{
+  font-weight: bold;
+}
+
+
+table, th, tr, td{
+  border:1px solid black;
+  font-weight: 200;
+}
