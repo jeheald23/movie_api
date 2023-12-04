@@ -3,10 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>App Documentation</title>
 </head>
 <body>
     <h1>MyFlix App Documentation</h1>
     <p>A server-side movies application which will provide users with access to information about different movies, directors, and genres. Users can sign up, update their personal information, and create a list of their favorite movies.  </p>
+    <h2>USERS</h2>
+
+    <table style="width:100%">
+      <tr class="header">
+        <td>Business Logic</td>
+        <td>URL</td>
+        <td>HTTP Method</td>
+        <td>Request Body Data Format</td>
+        <td>Response Body Data Format</td>
+      </tr>
+      <tr>
+        <td>Get a list of all users</td>
+        <td>/users</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON array of objects.</td>
+      </tr>
+      <tr>
+        <td>Register a user</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>A JSON object holding data with the user information to add, including name, username, and favorites. For example,
+            <p>{</p>
+                <p>Name: "Fred Jones",</p>
+                <p>Username: "fredjones",</p>
+                <p>Favorites:[</p>
+                <p></p>Mulholland Drive,</p>
+                <p>8 1/2</p>
+                <p>]</p>
+                <p>}</p>
+        </p>   
+        </td>
+        <td>A JSON object holding data about the user that was added including an ID. For example,
+            <p>{</p>
+            <p>ID: 2,</p>
+            <p>Name: "Fred Jones",</p>
+            <p>Username: "fredjones",</p>
+            <p>Favorites:[</p>
+            <p></p>Mulholland Drive,</p>
+            <p>8 1/2</p>
+            <p>]</p>
+            <p>}</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Get data about a single user by username</td>    
+        <td>/users/:username</td>               
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about a single user, containing an ID, name, user name, and favorites. For example,
+            <p>
+            <p>{</p>
+            <p>ID: 1,</p>
+                <p>Name: "Bob Smith",
+                <p>Username: "bobsmith",</p>
+                <p>Favorites:[</p>
+                    <p>Blade Runner,</p>
+                    <p>A Clockwork Orange,</p>
+                    <p>Stalker</p>
+                    <p>]</p>
+            <p>}</p>
+        </td> 
+    </tr>
+    <tr>
+        <td>Update a user's info</td>
+        <td>/users/:username</td>
+        <td>PUT</td>
+        <td>None</td>
+        <td>A text message indicating whether the user's info was updated.</td>
+    </tr>
+    <tr>
+        <td>Add a movie to a user's list of favorites</td>
+        <td>/users/:username/favorites</td>
+        <td>POST</td>
+        <td>None</td>
+        <td>A text message indicating whether a movie was added to the user's favorites.</td>
+    </tr>
+    <tr>
+        <td>Get a user's list of favorites</td>
+        <td>/users/:username/favorites</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON array of objects.</td>
+    <tr>
+        <td>Remove a movie from a user's list of favorites</td>
+        <td>/users/:username/favorites</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>A text message indicating whether a movie was deleted from the user's favorites.</td>
+    </tr>
+    <tr>
+        <td>Remove a user by ID</td>
+        <td>/users/:userID</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>A text message indicating whether the user was deleted.</td>
+    </tr>
+    
+    </table>
+
+    <h2>MOVIES</h2>
+        <table style="width:100%">
+        <tr class="header">
+        <td>Business Logic</td>
+        <td>URL</td>
+        <td>HTTP Method</td>
+        <td>Request Body Data Format</td>
+        <td>Response Body Data Format</td>
+      </tr>
+      <tr>
+        <td>Get a list of all movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON array of objects.</td>
+    </tr>
+    <tr>
+        <td>Get a movie by title</td>
+        <td>/movies/:title</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about a single movie including the title, description, genre, director, image URL, and whether it’s featured or not. For example,
+            <p>
+            <p>{</p>
+            <p>Title: "Blade Runner",</p>
+                <p>Director: "Ridley Scott",</p>
+                <p>Genre: "Science Fiction",</p>
+                <p>Description: "The film is set in a dystopian future Los Angeles of 2019, in which synthetic humans known as replicants are bio-engineered by the powerful Tyrell Corporation to work on space colonies. When a fugitive group of advanced replicants led by Roy Batty escapes back to Earth, burnt-out cop Rick Deckard reluctantly agrees to hunt them down. (from Wikipedia)",</p>
+                <p>Image URL: "https://en.wikipedia.org/wiki/Blade_Runner#/media/File:Blade_Runner_(1982_poster).png",</p>
+                <p>Featured: "True"</p>
+                
+            <p>}</p>
+            </td>
+    </tr>
+
+    <tr>
+        <td>Get a movie by director</td>
+        <td>/movies/:director</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON array of movies by director. For example,
+            <p>
+            <p>{</p>
+            <p>Director: "David Lynch",</p>
+                <p>Movies: [</p>
+                    <p>Mulholland Drive,</p>
+                    <p>Eraserhead,</p>
+                    <p>Blue Velvet</p>
+                    <p>]</p>
+            <p>}</p>
+            </td>
+    </tr>
+    <tr>
+        <td>Get a list of movies by genre</td>
+        <td>/movies/:genre</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON array of movies by genre. For example,
+            <p>
+            <p>{</p>
+            <p>Genre: "Science Fiction",</p>
+                <p>Movies: [</p>
+                    <p>Blade Runner,</p>
+                    <p>A Clockwork Orange,</p>
+                    <p>Stalker</p>
+                    <p>]</p>
+            <p>}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>Get the genre of a movie by name</td>
+            <td>/movies/:title/genre</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding the genre of a movie. For example,
+                <p>
+                    Movie: "Blade Runner",
+                    Genre: "Science Fiction"
+                </p>
+            </td>    
+        </tr>
+</table>
+
+<h2>DIRECTORS</h2>
+    <table style="width:100%">
+    <tr class="header">
+    <td>Business Logic</td>
+    <td>URL</td>
+    <td>HTTP Method</td>
+    <td>Request Body Data Format</td>
+    <td>Response Body Data Format</td>
+  </tr>
+  <tr>
+    <td>Get a list of all directors</td>
+    <td>/directors</td>
+    <td>GET</td>
+    <td>None</td>
+    <td>A JSON array of objects.</td>
+  </tr>
+  <tr>
+    <td>Get a director by name</td>
+    <td>/directors/:name</td>
+    <td>GET</td>
+    <td>None</td>
+    <td>A JSON object holding data about a single director including the name, birth year, death year, and bio. For example,
+        <p>
+        <p>{</p>
+        <p>Name: "Michelangelo Antonioni",</p>
+        <p>Birth year: "1912",</p>
+        <p>Death year: "2007",</p>
+        <p>Bio: "[A]n Italian director and filmmaker… best known for his 'trilogy on modernity and its discontents'—L'Avventura (1960), La Notte (1961), and L'Eclisse (1962)—as well as the English-language film Blowup (1966). His films have been described as 'enigmatic and intricate mood pieces' that feature elusive plots, striking visual composition, and a preoccupation with modern landscapes. His work substantially influenced subsequent art cinema. Antonioni received numerous awards and nominations throughout his career, being the only director to have won the Palme d'Or, the Golden Lion, the Golden Bear and the Golden Leopard. (from Wikipedia)"</p>
+        <p>}
+        </p>
+        </td>
+  </tr>
+</table>
+    
+    
 </body>
 </html>
