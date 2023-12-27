@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-const Models = require('models.js');
+const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
-//mongoose.connect('mongodb://127.0.0.1:27017/cfDB');
 
 mongoose.connect(process.env.CONNECTION_URI);
 
