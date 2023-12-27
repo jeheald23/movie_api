@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.use('/');
+app.use('/',express.static('public'));
 
 let allowedOrigins = '*';
 
