@@ -23,6 +23,10 @@ app.use(cors());
 
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.send('This is my app');
+});
+
 let allowedOrigins = '*';
 
 app.use(cors({
