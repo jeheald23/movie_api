@@ -6,7 +6,7 @@ const Users = Models.User;
 
 //mongoose.connect('mongodb://127.0.0.1:27017/cfDB');
 
-mongoose.connect('CONNECTION_URI');
+mongoose.connect('process.env.CONNECTION_URI');
 
 const bodyParser = require('body-parser');
 const express = require('express');
