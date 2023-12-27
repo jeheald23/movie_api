@@ -17,15 +17,48 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
 
+const cors = require('cors');
+app.use(cors());
+
+let allowedOrigins = '*';
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+      let message = "The CORS policy for this application doesn’t allow access from origin " + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
 
-const port = 8080;
+const { check, validationResult } = require('express-validator');
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});
 
 //register a user
-app.post('/users', async (req, res) => {
+app.post('/users', 
+[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],
+async (req, res) => {
+  let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -34,7 +67,7 @@ app.post('/users', async (req, res) => {
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -195,11 +228,6 @@ async (req, res) => {
     });
 });
 
-//get a list of all genres
-//app.get('/movies/genres', (req, res) => {
-//  res.json(movies.map((movie) => { return movie.genre }));
-//  });
-
 //get list of movies by genre
 app.get("/movies/genres/:genreName", passport.authenticate('jwt', { session: false }),
 async (req, res) => {
@@ -213,25 +241,6 @@ async (req, res) => {
     });
 });
 
-
-//get genre by movie title
-//app.get('/movies/:title/genre', (req, res) => {
-//  res.json(movies.find((movie) =>
-//  { return movie.title === req.params.title }).genre);
-//  });
-
-//get a list of all directors
-//app.get('movies/directors', async (req, res) => {
-//  await Movies.find()
-//    .then((movies) => {
-//      res.status(201).json(movies.director);
-//    })
-//    .catch((err) => {
-//      console.error(err);
-//      res.status(500).send('Error: ' + err);
-//    });
-//});
-
 //get a list of movies by director name
 app.get("/movies/directors/:directorName", passport.authenticate('jwt', { session: false }),
 async (req, res) => {
@@ -243,8 +252,4 @@ async (req, res) => {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
-});
-
-app.listen(port, () => {
-console.log(`Your app is listening on port ${port}.`);
 });
