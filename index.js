@@ -21,9 +21,7 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.get("/documentation", (req, res) => {
-	res.sendFile(path.join(__dirname, "public", "documentation.html"));
-});
+app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
   res.send('This is my app');
