@@ -19,6 +19,31 @@
         <td>Request Body Data Format</td>
         <td>Response Body Data Format</td>
       </tr>
+      
+      <tr>
+        <td>Allow a new user to register</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>A JSON object holding data with the user information to add including username, password, and birthday. For example,
+            <p>{</p>
+                <p>"Username": "plato",</p>
+                <p>"Password": "socrates1234",</p>
+                <p>"Email": "plato@academy.com",</p>
+                <p>"Birthday": "1954-01-02</p>
+            <p>}</p>   
+        </td>
+        <td>A JSON object holding data about the user that was added including an ID and an empty array for FavoriteMovies to be added. For example,
+            <p>{</p>
+            <p>"_id": "2",</p>
+            <p>"Username": "plato",</p>
+            <p>"Password": "socrates1234",</p>
+            <p>"Email": "plato@academy.com",</p>
+            <p>"Birthday": "1954-01-02</p>
+            <p>"FavoriteMovies":[]</p>
+            <p>}</p>  
+        </td>
+    </tr>
+      
       <tr>
         <td>Get a list of all users</td>
         <td>/users</td>
@@ -26,85 +51,100 @@
         <td>None</td>
         <td>A JSON array of objects.</td>
       </tr>
-      <tr>
-        <td>Register a user</td>
-        <td>/users</td>
-        <td>POST</td>
-        <td>A JSON object holding data with the user information to add, including name, username, and favorites. For example,
-            <p>{</p>
-                <p>Name: "Fred Jones",</p>
-                <p>Username: "fredjones",</p>
-                <p>Favorites:[</p>
-                <p></p>Mulholland Drive,</p>
-                <p>8 1/2</p>
-                <p>]</p>
-                <p>}</p>
-        </p>   
-        </td>
-        <td>A JSON object holding data about the user that was added including an ID. For example,
-            <p>{</p>
-            <p>ID: 2,</p>
-            <p>Name: "Fred Jones",</p>
-            <p>Username: "fredjones",</p>
-            <p>Favorites:[</p>
-            <p></p>Mulholland Drive,</p>
-            <p>8 1/2</p>
-            <p>]</p>
-            <p>}</p>
-        </td>
-    </tr>
+      
+    
     <tr>
         <td>Get data about a single user by username</td>    
-        <td>/users/:username</td>               
+        <td>/users/:Username</td>               
         <td>GET</td>
         <td>None</td>
         <td>A JSON object holding data about a single user, containing an ID, name, user name, and favorites. For example,
-            <p>
             <p>{</p>
-            <p>ID: 1,</p>
-                <p>Name: "Bob Smith",
-                <p>Username: "bobsmith",</p>
-                <p>Favorites:[</p>
-                    <p>Blade Runner,</p>
-                    <p>A Clockwork Orange,</p>
-                    <p>Stalker</p>
-                    <p>]</p>
-            <p>}</p>
+                <p>"_id": "2",</p>
+                <p>"Username": "plato",</p>
+                <p>"Password": "socrates1234",</p>
+                <p>"Email": "plato@academy.com",</p>
+                <p>"Birthday": "1954-01-02</p>
+                <p>"FavoriteMovies":[]</p>
+                <p>}</p>  
         </td> 
     </tr>
+
     <tr>
-        <td>Update a user's info</td>
-        <td>/users/:username</td>
+        <td>Allow a user to update their information.</td>
+        <td>/users/:Username</td>
+        <td>PUT</td>
+        <td>A JSON object holding data with the user information to be updated including username, password, and birthday. For example,
+            <p>{</p>
+                <p>"Username": "aristotle",</p>
+                <p>"Password": "socrates1234",</p>
+                <p>"Email": "plato@academy.com",</p>
+                <p>"Birthday": "1954-01-02</p>
+            <p>}</p>   
+        </td>
+        <td>A JSON object holding data about the user with the updated field(s) populated with the new information. For example,
+                <p>{</p>
+                <p>"_id": "2",</p>
+                <p>"Username": "aristotle",</p>
+                <p>"Password": "socrates1234",</p>
+                <p>"Email": "plato@academy.com",</p>
+                <p>"Birthday": "1954-01-02</p>
+                <p>"FavoriteMovies":[]</p>
+                <p>}</p>
+            </td>        
+            </tr>
+    
+        <tr>
+        <td>Allow a user to add a movie their list of favorite movies.</td>
+        <td>/users/:Username/movies/:MovieID</td>
         <td>PUT</td>
         <td>None</td>
-        <td>A text message indicating whether the user's info was updated.</td>
-    </tr>
-    <tr>
-        <td>Add a movie to a user's list of favorites</td>
-        <td>/users/:username/favorites</td>
-        <td>POST</td>
-        <td>None</td>
-        <td>A text message indicating whether a movie was added to the user's favorites.</td>
+        <td>A JSON object holding data about the user with "FavoriteMovies" array populated with the added movie. For example,
+            <p>{</p>
+            <p>"_id": "2",</p>
+            <p>"Username": "aristotle",</p>
+            <p>"Password": "socrates1234",</p>
+            <p>"Email": "plato@academy.com",</p>
+            <p>"Birthday": "1954-01-02</p>
+            <p>"FavoriteMovies":["Excalibur"]</p>
+            <p>}</p>
+        </td>        
+
     </tr>
     <tr>
         <td>Get a user's list of favorites</td>
-        <td>/users/:username/favorites</td>
+        <td>/users/:Username/movies</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON array of objects.</td>
-    <tr>
+        <td>A JSON array of objects. For example,
+            <p>["Excalibur","The Shining","Little Women"]</p>
+        </td>
+    
+        <tr>
         <td>Remove a movie from a user's list of favorites</td>
-        <td>/users/:username/favorites</td>
+        <td>/users/:Username/movies/:MovieID</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>A text message indicating whether a movie was deleted from the user's favorites.</td>
+        <td>A JSON object holding data about the user with "FavoriteMovies" array depopulated with the added movie. For example,
+            <p>{</p>
+            <p>"_id": "2",</p>
+            <p>"Username": "aristotle",</p>
+            <p>"Password": "socrates1234",</p>
+            <p>"Email": "plato@academy.com",</p>
+            <p>"Birthday": "1954-01-02</p>
+            <p>"FavoriteMovies":[]</p>
+            <p>}</p>
+        </td>  
     </tr>
+
     <tr>
-        <td>Remove a user by ID</td>
-        <td>/users/:userID</td>
+        <td>Remove a user by username</td>
+        <td>/users/:Username</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>A text message indicating whether the user was deleted.</td>
+        <td>A text message indicating whether the user was deleted. For example,
+            <p>aristotle was deleted.</p>
+        </td>
     </tr>
     
     </table>
@@ -131,101 +171,48 @@
         <td>GET</td>
         <td>None</td>
         <td>A JSON object holding data about a single movie including the title, description, genre, director, image URL, and whether it’s featured or not. For example,
-            <p>
             <p>{</p>
-            <p>Title: "Blade Runner",</p>
-                <p>Director: "Ridley Scott",</p>
-                <p>Genre: "Science Fiction",</p>
-                <p>Description: "The film is set in a dystopian future Los Angeles of 2019, in which synthetic humans known as replicants are bio-engineered by the powerful Tyrell Corporation to work on space colonies. When a fugitive group of advanced replicants led by Roy Batty escapes back to Earth, burnt-out cop Rick Deckard reluctantly agrees to hunt them down. (from Wikipedia)",</p>
-                <p>Image URL: "https://en.wikipedia.org/wiki/Blade_Runner#/media/File:Blade_Runner_(1982_poster).png",</p>
-                <p>Featured: "True"</p>
-                
+                <p>"_id": "3",</p>
+                <p>"title": "Blade Runner",</p>
+                <p>"description": "Rick Deckard must pursue and terminate four replicants who stole a ship in space and have returned to Earth to find their creator.",
+                "genre": {</p>
+                    <p>"name": "Science Fiction",</p>
+                    <p>"description": "Science fiction (sometimes shortened to SF or sci-fi) is a genre of speculative fiction, which typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life."</p>
+                <p>},</p>
+                <p>"releaseYear": 1982,</p>
+                <p>"director": {</p>
+                    <p>"name": "Ridley Scott",</p>
+                    <p>"bio": "Sir Ridley Scott is an English filmmaker. He is best known for directing films in the science fiction, crime, and historical drama genres. His work is known for its atmospheric and highly concentrated visual style. Scott has received many accolades, including the BAFTA Fellowship for lifetime achievement in 2018, two Primetime Emmy Awards, and a Golden Globe Award. In 2003, he was knighted by Queen Elizabeth II.",</p>
+                    <p>"birthYear": 1937</p>
+                <p>},</p>
+                <p>"imagePath": "bladerunner.png",</p>
+                <p>"featured": true,</p>
+                <p>"actors": [
+                    "Harrison Ford",
+                    "Rutger Hauer",
+                    "Sean Young"
+                ]</p>
             <p>}</p>
             </td>
     </tr>
 
     <tr>
-        <td>Get a movie by director</td>
-        <td>/movies/:director</td>
+        <td>Get a list of movies by director</td>
+        <td>/movies/:directorName</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON array of movies by director. For example,
-            <p>
-            <p>{</p>
-            <p>Director: "David Lynch",</p>
-                <p>Movies: [</p>
-                    <p>Mulholland Drive,</p>
-                    <p>Eraserhead,</p>
-                    <p>Blue Velvet</p>
-                    <p>]</p>
-            <p>}</p>
+        <td>A JSON array of movies by director.
             </td>
     </tr>
+
     <tr>
         <td>Get a list of movies by genre</td>
-        <td>/movies/:genre</td>
+        <td>/movies/:genreName</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON array of movies by genre. For example,
-            <p>
-            <p>{</p>
-            <p>Genre: "Science Fiction",</p>
-                <p>Movies: [</p>
-                    <p>Blade Runner,</p>
-                    <p>A Clockwork Orange,</p>
-                    <p>Stalker</p>
-                    <p>]</p>
-            <p>}</p>
-            </td>
-        </tr>
-        <tr>
-            <td>Get the genre of a movie by name</td>
-            <td>/movies/:title/genre</td>
-            <td>GET</td>
-            <td>None</td>
-            <td>A JSON object holding the genre of a movie. For example,
-                <p>
-                    Movie: "Blade Runner",
-                    Genre: "Science Fiction"
-                </p>
-            </td>    
+        <td>A JSON array of movies by genre.</td>
         </tr>
 </table>
-
-<h2>DIRECTORS</h2>
-    <table style="width:100%">
-    <tr class="header">
-    <td>Business Logic</td>
-    <td>URL</td>
-    <td>HTTP Method</td>
-    <td>Request Body Data Format</td>
-    <td>Response Body Data Format</td>
-  </tr>
-  <tr>
-    <td>Get a list of all directors</td>
-    <td>/directors</td>
-    <td>GET</td>
-    <td>None</td>
-    <td>A JSON array of objects.</td>
-  </tr>
-  <tr>
-    <td>Get a director by name</td>
-    <td>/directors/:name</td>
-    <td>GET</td>
-    <td>None</td>
-    <td>A JSON object holding data about a single director including the name, birth year, death year, and bio. For example,
-        <p>
-        <p>{</p>
-        <p>Name: "Michelangelo Antonioni",</p>
-        <p>Birth year: "1912",</p>
-        <p>Death year: "2007",</p>
-        <p>Bio: "[A]n Italian director and filmmaker… best known for his 'trilogy on modernity and its discontents'—L'Avventura (1960), La Notte (1961), and L'Eclisse (1962)—as well as the English-language film Blowup (1966). His films have been described as 'enigmatic and intricate mood pieces' that feature elusive plots, striking visual composition, and a preoccupation with modern landscapes. His work substantially influenced subsequent art cinema. Antonioni received numerous awards and nominations throughout his career, being the only director to have won the Palme d'Or, the Golden Lion, the Golden Bear and the Golden Leopard. (from Wikipedia)"</p>
-        <p>}
-        </p>
-        </td>
-  </tr>
-</table>
-    
-    
+     
 </body>
 </html>
