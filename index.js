@@ -129,11 +129,9 @@ async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-let hashedPassword = Users.hashPassword(req.body.Password);
   if(req.user.Username !== req.params.Username){
       return res.status(400).send('Permission denied');
   }
-  // CONDITION ENDS
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
       $set:
       {
@@ -221,7 +219,7 @@ async (req, res) => {
 });
 
 //get a list of all movies
-app.get('/movies',
+app.get('/movies', passport.authenticate('jwt', { session: false }),
 async (req, res) => {
   await Movies.find()
     .then((movies) => {
