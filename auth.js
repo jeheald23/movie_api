@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const passport = require("passport"); // Add this line to import the 'passport' module
-const require = require("module"); // Add this line to import the 'require' function
 const module = require("module"); // Add this line to import the 'module' package
 const jwtSecret = "your_jwt_secret"; // This has to be the same key used in the JWTStrategy
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const require = require("module").createRequire(new URL(require("url").pathToFileURL(require("url").pathname).pathname));
+
 
 // Remove the duplicate declaration of 'mongoose'
 // const mongoose = require("mongoose");
