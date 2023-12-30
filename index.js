@@ -41,7 +41,7 @@ app.use(cors({
 }));
 
 const passport = require("passport");
-const require = require("require"); // Add this line to import the 'require' function
+
 
 require("./passport");
 
