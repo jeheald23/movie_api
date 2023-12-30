@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
 
-// Remove the duplicate declaration of 'mongoose'
-// const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const module = require("module");
 
