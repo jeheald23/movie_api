@@ -4,12 +4,12 @@ const Models = require("./models.js");
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const process = require("process");
 mongoose.connect(process.env.CONNECTION_URI);
 
 
 const bodyParser = require("body-parser");
 const express = require("express");
-const uuid = require("uuid");
 
 const app = express();
 
@@ -40,9 +40,9 @@ app.use(cors({
   }
 }));
 
-let auth = require("./auth")(app);
-
 const passport = require("passport");
+const require = require("require"); // Add this line to import the 'require' function
+
 require("./passport");
 
 const { check, validationResult } = require("express-validator");

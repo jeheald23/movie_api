@@ -1,6 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const require = require("module").createRequire(new URL(require("url").pathToFileURL(require("url").pathname).pathname));
 
-const bcrypt = require('bcrypt');
+// Remove the duplicate declaration of 'mongoose'
+// const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const module = require("module");
 
 const movieSchema = mongoose.Schema({
     Title: {type: String, required: true},
@@ -23,19 +27,19 @@ const movieSchema = mongoose.Schema({
     Password: {type: String, required: true},
     Email: {type: String, required: true},
     Birthday: Date,
-    FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+    FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }]
   });
 
-  userSchema.statics.hashPassword = (password) => {
-    return bcrypt.hashSync(password, 10);
-  };
-  
-  userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compareSync(password, this.Password);
-  };
-  
-  const Movie = mongoose.model('Movie', movieSchema);
-  const User = mongoose.model('User', userSchema);
+    userSchema.statics.hashPassword = (password) => {
+      return bcrypt.hashSync(password, 10);
+    };
 
-module.exports.Movie = Movie;
-module.exports.User = User;
+    userSchema.methods.validatePassword = function(password) {
+      return bcrypt.compareSync(password, this.Password);
+    };
+
+    const Movie = mongoose.model("Movie", movieSchema);
+    const User = mongoose.model("User", userSchema);
+
+    module.exports.Movie = Movie;
+    module.exports.User = User;
