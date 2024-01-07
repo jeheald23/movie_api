@@ -1,10 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); 
 Models = require("./models.js");
+uuid = require("uuid");
+path = require ("path");
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
 const process = require("process");
+
+//mongoose.connect('mongodb://localhost:27017/cfDB');
 mongoose.connect(process.env.CONNECTION_URI);
 
 
@@ -15,8 +19,9 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use(bodyParser.json());
+
+let auth = require("./auth.js")(app);
 
 const cors = require("cors");
 app.use(cors());
@@ -41,7 +46,6 @@ app.use(cors({
 }));
 
 const passport = require("passport");
-
 
 require("./passport");
 
