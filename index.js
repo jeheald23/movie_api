@@ -28,22 +28,16 @@ app.use(cors());
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send("This is my app");
+app.get('/', (req, res) => {
+  const path = require('path');
+  const indexPath = path.join(__dirname, 'index.html');
+  res.sendFile(indexPath);
+  console.log('Welcome to the home page');
 });
 
 let allowedOrigins = "*";
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ 
-      let message = "The CORS policy for this application doesn’t allow access from origin " + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
+app.use(cors());
 
 const passport = require("passport");
 
@@ -136,11 +130,12 @@ async (req, res) => {
   if(req.user.Username !== req.params.Username){
       return res.status(400).send("Permission denied");
   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
       $set:
       {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday
       }

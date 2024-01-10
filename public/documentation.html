@@ -43,6 +43,29 @@
             <p>}</p>  
         </td>
     </tr>
+
+    <tr>
+        <td>Allow a user to login</td>
+        <td>/login</td>
+        <td>POST</td>
+        <td>User must enter username and password key and username and password value to query params. For example,
+            <p>{</p>
+                <p>"Username": "plato",</p>
+                <p>"Password": "socrates1234",</p>
+            <p>}</p>   
+        </td>
+        <td>A JSON object holding data about the user that was added including an ID, an empty array for FavoriteMovies to be added, and an authorization token. For example,
+            <p>{</p>
+            <p>"_id": "2",</p>
+            <p>"Username": "plato",</p>
+            <p>"Password": "socrates1234",</p>
+            <p>"Email": "plato@academy.com",</p>
+            <p>"Birthday": "1954-01-02</p>
+            <p>"FavoriteMovies":[]</p>
+            <p>"token:"</p>
+            <p>}</p>  
+        </td>
+    </tr>
       
       <tr>
         <td>Get a list of all users</td>
