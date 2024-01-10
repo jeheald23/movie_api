@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 let auth = require("./auth.js")(app);
 
 const cors = require("cors");
-app.use(cors());
+app.use(cors()); 
 
 app.use(express.static("public"));
 

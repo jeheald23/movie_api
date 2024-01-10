@@ -15,7 +15,7 @@ let Users = Models.User,
     new LocalStrategy(
       {
         usernameField: "Username",
-        passwordField: "Password",
+        passwordField: "Password", 
       },
       async (username, password, callback) => {
         console.log(`${username} ${password}`);
