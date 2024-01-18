@@ -25,6 +25,9 @@ app.use(bodyParser.json());
 
 let auth = require("./auth.js")(app);
 
+const passport = require("passport");
+require("./passport.js");
+
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
@@ -34,9 +37,7 @@ app.get('/', (req, res) => {
   console.log('Welcome to the home page');
 });
 
-let allowedOrigins = [
-  "*",
-];
+let allowedOrigins = "*";
 //allow specific set of origins to access your API
 app.use(
   cors({
@@ -54,11 +55,7 @@ app.use(
   })
 );
 
-const passport = require("passport");
-
-require("./passport");
-
-const { check, validationResult } = require("express-validator");
+app.use(cors());
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0",() => {
