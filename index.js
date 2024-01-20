@@ -1,5 +1,5 @@
 const mongoose = require("mongoose"); 
-Models = require("./models.js");
+const Models = require("./models.js");
 uuid = require("uuid");
 path = require ("path");
 cors = require("cors");
@@ -19,6 +19,15 @@ const express = require("express");
 
 const app = express();
 
+const corsOptions = {
+  origin: "*", // Adjust this based on your specific needs
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -37,14 +46,6 @@ app.get('/', (req, res) => {
   console.log('Welcome to the home page');
 });
 
-const corsOptions = {
-  origin: "*", // Adjust this based on your specific needs
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
 
 
 const port = process.env.PORT || 8080;
