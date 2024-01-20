@@ -37,9 +37,15 @@ app.get('/', (req, res) => {
   console.log('Welcome to the home page');
 });
 
-let allowedOrigins = "*";
+const corsOptions = {
+  origin: "*", // Adjust this based on your specific needs
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0",() => {
