@@ -183,11 +183,11 @@ async (req, res) => {
 });
 
 //delete a movie from a user's list of favorites  
-app.delete("/users/:Username/movies/:MovieID", passport.authenticate("jwt", { session: false }),
+app.delete("/users/:Username/movies/:_id", passport.authenticate("jwt", { session: false }),
 async (req, res) => {
   
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $pull: { FavoriteMovies: req.params.MovieID }
+     $pull: { FavoriteMovies: req.params._id }
    },
    { new: true })
   .then((updatedUser) => {
