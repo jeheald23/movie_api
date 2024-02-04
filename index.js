@@ -167,7 +167,7 @@ async (req, res) => {
 });
 
 //add a movie to a user's list of favorites
-app.post("/users/:Username/movies/movieID", passport.authenticate("jwt", { session: false }),
+app.post("/users/:Username/movies/:movieID", passport.authenticate("jwt", { session: false }),
 async (req, res) => {
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
      $push: { FavoriteMovies: req.params.movieID }
@@ -183,7 +183,7 @@ async (req, res) => {
 });
 
 //delete a movie from a user's list of favorites  
-app.delete("/users/:Username/movies/movieID", passport.authenticate("jwt", { session: false }),
+app.delete("/users/:Username/movies/:movieID", passport.authenticate("jwt", { session: false }),
 async (req, res) => {
   
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
