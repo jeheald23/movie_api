@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Models = require("./models.js");
 uuid = require("uuid");
 path = require ("path");
-cors = require("cors");
 const { check, validationResult } = require("express-validator");
 
 const Movies = Models.Movie;
@@ -20,7 +19,7 @@ const express = require("express");
 const app = express();
 
 const cors = require('cors');
-let allowedOrigins = ["https://jeheald23myflix.netlify.app/", "http://localhost:8080", "http://testsite.com"];
+let allowedOrigins = ["https://jeheald23myflix.netlify.app", "http://localhost:8080", "http://testsite.com"];
 
 app.use(cors({
   origin: (origin, callback) => {
