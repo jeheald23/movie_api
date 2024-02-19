@@ -19,14 +19,19 @@ const express = require("express");
 
 const app = express();
 
-const corsOptions = {
-  origin: "*", // Adjust this based on your specific needs
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+const cors = require('cors');
+let allowedOrigins = ["https://jeheald23myflix.netlify.app/", "http://localhost:8080", "http://testsite.com"];
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      let message = "The CORS policy for this application doesn’t allow access from origin " + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
