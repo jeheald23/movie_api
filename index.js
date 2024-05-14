@@ -20,7 +20,7 @@ const express = require("express");
 const app = express();
 
 
-const allowedOrigins = ["https://jeheald23myflix.netlify.app", "http://localhost:8080", "http://testsite.com", "http://localhost:4200", "https://jeheald23.github.io"];
+const allowedOrigins = ["https://jeheald23myflix.netlify.app", "http://localhost:8080", "http://testsite.com", "http://localhost:4200", "http://localhost:1234", "https://jeheald23.github.io"];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -75,7 +75,7 @@ async (req, res) => {
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + " already exists");
+        return res.status(400).send("Please check your username and password and try again.");
       } else {
         Users
           .create({
