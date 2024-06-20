@@ -15,7 +15,9 @@ const Users = Models.User;
 const process = require("process");
 
 // Connect to MongoDB using the connection URI from environment variables
-mongoose.connect(process.env.CONNECTION_URI);
+//mongoose.connect(process.env.CONNECTION_URI);
+
+mongoose.connect('mongodb+srv://jeheald23:Somero23@myflixappdb.glndlmy.mongodb.net/?retryWrites=true&w=majority&appName=MyFlixAppDB');
 
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -27,15 +29,10 @@ const allowedOrigins = ["https://jeheald23myflix.netlify.app", "http://localhost
 
 // Set up CORS middleware
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
-      let message = "The CORS policy for this application doesn’t allow access from origin " + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
+  origin: allowedOrigins
+})
+);
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
