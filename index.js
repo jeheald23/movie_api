@@ -17,7 +17,11 @@ const process = require("process");
 // Connect to MongoDB using the connection URI from environment variables
 //mongoose.connect(process.env.CONNECTION_URI);
 
-mongoose.connect('mongodb+srv://jeheald23:Somero23@myflixappdb.glndlmy.mongodb.net/?retryWrites=true&w=majority&appName=MyFlixAppDB');
+const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const bodyParser = require("body-parser");
 const express = require("express");
