@@ -1,11 +1,12 @@
-/**
- * Importing required modules
- */
+/* eslint-disable no-undef */
+
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-const uuid = require("uuid"); // Not used in the provided code, might be used elsewhere
-const path = require("path"); // Not used in the provided code, might be used elsewhere
+//const uuid = require("uuid"); // Not used in the provided code, might be used elsewhere
+//const path = require("path"); // Not used in the provided code, might be used elsewhere
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 const { check, validationResult } = require("express-validator");
 
 // Importing models from models.js
@@ -18,10 +19,10 @@ const process = require("process");
 //mongoose.connect(process.env.CONNECTION_URI);
 
 const mongoURI = process.env.MONGO_URI;
-
+console.log("mongoURI", mongoURI);
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -43,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Authentication middleware
-let auth = require("./auth.js")(app);
+// let auth = require("./auth.js")(app);
 
 const passport = require("passport");
 require("./passport.js");
@@ -51,11 +52,11 @@ require("./passport.js");
 app.use(express.static("public"));
 
 // Route to serve home page
-app.get('/', (req, res) => {
-  const path = require('path');
-  const indexPath = path.join(__dirname, 'index.html');
+app.get("/", (req, res) => {
+  const path = require("path");
+  const indexPath = path.join(__dirname, "index.html");
   res.sendFile(indexPath);
-  console.log('Welcome to the home page');
+  console.log("Welcome to the home page");
 });
 
 // Set up server port
