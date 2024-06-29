@@ -29,7 +29,7 @@ const express = require("express");
 const app = express();
 
 // Define allowed origins for CORS
-const allowedOrigins = ["https://jeheald23myflix.netlify.app", "http://localhost:8080", "http://testsite.com", "http://localhost:4200", "http://localhost:1234", "https://jeheald23.github.io"];
+const allowedOrigins = ["http://myflix-client-bucket.s3-website-us-east-1.amazonaws.com", "https://jeheald23myflix.netlify.app", "http://localhost:8080", "http://testsite.com", "http://localhost:4200", "http://localhost:1234", "https://jeheald23.github.io"];
 
 // Set up CORS middleware
 app.use(cors({
