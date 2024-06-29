@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const jwt = require("jsonwebtoken");
 const passport = require("passport"); // Add this line to import the 'passport' module
 const jwtSecret = "your_jwt_secret"; // This has to be the same key used in the JWTStrategy

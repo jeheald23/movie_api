@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Authentication middleware
-// let auth = require("./auth.js")(app);
+require("./auth.js")(app);
 
 const passport = require("passport");
 require("./passport.js");
